@@ -1,7 +1,9 @@
 #include <algorithm>
 #include <cstdint>
 #include <fstream>
+#include <ios>
 #include <iostream>
+#include <limits>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -24,30 +26,34 @@ void createTodo(string const &title, i32 id, i32 priority) {
 
 vector<tuple<i32, i32, string>> listTodo() {
   vector<tuple<i32, i32, string>> todoList;
-  ifstream file("~/.cache/todo-cli/todo.txt");
-  while (!file.eof()) {
-    i32 id, priority;
-    string title;
-    file >> id >> priority;
+  ifstream file(std::string(std::getenv("HOME")) + "/.cache/todo-cli/todo.txt");
+  i32 id, priority;
+  string title;
+  while (file >> id >> priority) {
     getline(file >> std::ws, title);
-    file.ignore();
     todoList.emplace_back(id, priority, title);
   }
   sort(todoList.begin(), todoList.end(), [](auto const &a, auto const &b) {
     return std::get<1>(a) > std::get<1>(b);
   });
   return todoList;
-};
+}
+
+void closeTodo(i32 idToRemove) {
+  ifstream file(std::string(std::getenv("HOME")) + "/.cache/todo-cli/todo.txt");
+  i32 id;
+  while (file >> id) {
+    file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (id == idToRemove) {
+    }
+  }
+}
 
 int main() {
-  std::cout << "Creating a new todo..." << endl;
-  createTodo("you have to do this", 1, 1);
-  //
-  // std::cout << "Listing todos:" << endl;
-  // for (const auto &[id, priority, title] : listTodo()) {
-  //   std::cout << "ID: " << id << ", Priority: " << priority
-  //             << ", Title: " << title << endl;
-  // }
-  //
+  vector<tuple<i32, i32, string>> todos = listTodo();
+  for (const auto &[id, priority, title] : todos) {
+    std::cout << "ID: " << id << ", Priority: " << priority
+              << ", Title: " << title << endl;
+  }
   return 0;
 }
