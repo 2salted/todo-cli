@@ -1,0 +1,3 @@
+/home/salted/repos/todo-cli/build/CMakeFiles/todo-cli.dir
+/home/salted/repos/todo-cli/build/CMakeFiles/edit_cache.dir
+/home/salted/repos/todo-cli/build/CMakeFiles/rebuild_cache.dir
