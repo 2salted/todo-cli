@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/salted/repos/todo-cli/build",
-  "command": "/etc/profiles/per-user/salted/bin/g++   -g -std=gnu++17 -o CMakeFiles/todo-cli.dir/src/main.cpp.o -c /home/salted/repos/todo-cli/src/main.cpp",
-  "file": "/home/salted/repos/todo-cli/src/main.cpp",
-  "output": "CMakeFiles/todo-cli.dir/src/main.cpp.o"
-}
-]

@@ -1,1 +1,0 @@
-/etc/profiles/per-user/salted/bin/g++ -g "CMakeFiles/todo-cli.dir/src/main.cpp.o" -o todo-cli
