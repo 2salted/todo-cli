@@ -22,7 +22,6 @@ i32 getLatestId() {
   if (!file) {
     return 1;
   }
-
   i32 id, priority;
   string title;
   i32 lastId;
