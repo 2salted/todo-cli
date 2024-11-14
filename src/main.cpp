@@ -1,25 +1,46 @@
 #include <algorithm>
 #include <cstdint>
 #include <fstream>
+#include <iomanip>
 #include <ios>
 #include <iostream>
-#include <optional>
 #include <string>
 #include <tuple>
 #include <vector>
 
 using i32 = int32_t;
+using std::cerr;
+using std::cout;
 using std::endl;
 using std::getline;
 using std::ifstream;
+using std::left;
 using std::ofstream;
+using std::setw;
 using std::string;
 using std::tuple;
 using std::vector;
 
+void printHeader() {
+  cout << left << setw(6) << "ID" << setw(10) << "TITLE" << endl;
+  cout << string(60, '-') << endl;
+  return;
+}
+
+void displayTodo(vector<tuple<i32, i32, string>> const &todo) {
+  printHeader();
+  for (i32 i = 0; i < todo.size(); ++i) {
+    i32 id = std::get<0>(todo[i]);
+    string title = std::get<2>(todo[i]);
+    cout << left << "#" << setw(5) << id << setw(12) << title << endl;
+  }
+  return;
+}
+
 i32 getLatestId() {
-  ifstream file(string(std::getenv("HOME")) + "/.cache/todo-cli/todo.txt");
+  ifstream file(string(getenv("HOME")) + "/.cache/todo-cli/todo.txt");
   if (!file) {
+    cerr << "Error: couldn't open file" << endl;
     return 1;
   }
   i32 id, priority;
@@ -31,21 +52,28 @@ i32 getLatestId() {
     lastId = id;
   }
   file.close();
-  return lastId;
+  return lastId ? lastId + 1 : 1;
 }
 
-void createTodo(string const &title, i32 priority) {
+void createTodo(string const &title, i32 const priority) {
   i32 id;
-  ofstream file(string(std::getenv("HOME")) + "/.cache/todo-cli/todo.txt",
+  ofstream file(string(getenv("HOME")) + "/.cache/todo-cli/todo.txt",
                 std::ios::app);
-  id = getLatestId();
-  file << id + 1 << " " << priority << " " << title << endl;
+  if (!file) {
+    cerr << "Error: couldn't open file" << endl;
+    return;
+  }
+  file << getLatestId() << ". " << priority << " " << title << endl;
   file.close();
 }
 
-vector<tuple<i32, i32, string>> listTodo() {
+vector<tuple<i32, i32, string>> getTodo() {
   vector<tuple<i32, i32, string>> todoList;
-  ifstream file(string(std::getenv("HOME")) + "/.cache/todo-cli/todo.txt");
+  ifstream file(string(getenv("HOME")) + "/.cache/todo-cli/todo.txt");
+  if (!file) {
+    cerr << "Error: couldn't open file" << endl;
+    return todoList;
+  }
   i32 id, priority;
   string title;
   while (file >> id >> priority) {
@@ -61,7 +89,11 @@ vector<tuple<i32, i32, string>> listTodo() {
 
 void closeTodo(i32 idToRemove) {
   vector<tuple<i32, i32, string>> todoList;
-  ifstream file(string(std::getenv("HOME")) + "/.cache/todo-cli/todo.txt");
+  ifstream file(string(getenv("HOME")) + "/.cache/todo-cli/todo.txt");
+  if (!file) {
+    cerr << "Error: couldn't open file" << endl;
+    return;
+  }
   i32 id, priority;
   string title;
 
@@ -72,13 +104,20 @@ void closeTodo(i32 idToRemove) {
     }
   }
   file.close();
-
-  ofstream outFile(string(std::getenv("HOME")) + "/.cache/todo-cli/todo.txt",
+  ofstream outFile(string(getenv("HOME")) + "/.cache/todo-cli/todo.txt",
                    std::ios::trunc);
+  if (!outFile) {
+    cerr << "Error: couldn't reopen file" << endl;
+    return;
+  }
   for (const auto &[id, priority, title] : todoList) {
     outFile << id << " " << priority << " " << title << endl;
   }
   outFile.close();
 }
 
-int main() { return 0; }
+int main() {
+  vector<tuple<i32, i32, string>> todos = getTodo();
+  displayTodo(todos);
+  return 0;
+}
