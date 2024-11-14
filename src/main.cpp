@@ -65,6 +65,7 @@ void createTodo(string const &title, i32 const priority) {
   }
   file << getLatestId() << ". " << priority << " " << title << endl;
   file.close();
+  return;
 }
 
 vector<tuple<i32, i32, string>> getTodo() {
@@ -103,6 +104,7 @@ void closeTodo(i32 idToRemove) {
       todoList.emplace_back(id, priority, title);
     }
   }
+
   file.close();
   ofstream outFile(string(getenv("HOME")) + "/.cache/todo-cli/todo.txt",
                    std::ios::trunc);
@@ -116,8 +118,14 @@ void closeTodo(i32 idToRemove) {
   outFile.close();
 }
 
-int main() {
-  vector<tuple<i32, i32, string>> todos = getTodo();
-  displayTodo(todos);
-  return 0;
+int main(int argc, char *argv[]) {
+  if (argc < 2) {
+    cerr << "Error: no command provided";
+    return 1;
+  }
+  string command = argv[1];
+  if (command == "list") {
+    vector<tuple<i32, i32, string>> todoList = getTodo();
+    displayTodo(todoList);
+  }
 }
