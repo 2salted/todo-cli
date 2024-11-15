@@ -170,7 +170,7 @@ int main(i32 argc, char *argv[]) {
     cout << "Todo closed: " << "#" << id << endl;
     return 1;
   } else if (command == "-v") {
-    cout << "App version: " << APP_VERSION << endl;
+    cout << "Todo\n" << APP_VERSION << endl;
     return 0;
   } else {
     cerr << "Error: command not found" << endl;
