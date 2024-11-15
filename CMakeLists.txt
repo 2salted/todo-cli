@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project name
-project(todo-cli VERSION 0.2.0)
+project(todo-cli VERSION 0.2.1)
 
 # Define C++ standard
 set(CMAKE_CXX_STANDARD 17)

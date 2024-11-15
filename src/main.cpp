@@ -45,9 +45,9 @@ i32 getLatestId() {
     cerr << "Error: couldn't open file" << endl;
     return 1;
   }
-  i32 id, priority;
+  i32 id = 0, priority = 0;
   string title;
-  i32 lastId;
+  i32 lastId = 0;
 
   while (file >> id >> priority) {
     getline(file >> std::ws, title);
@@ -80,7 +80,7 @@ vector<tuple<i32, i32, string>> getTodo() {
     cerr << "Error: couldn't open file" << endl;
     return todoList;
   }
-  i32 id, priority;
+  i32 id = 0, priority = 0;
   string title;
 
   while (file >> id >> priority) {
@@ -104,7 +104,7 @@ void closeTodo(i32 idToRemove) {
     cerr << "Error: couldn't open file" << endl;
     return;
   }
-  i32 id, priority;
+  i32 id = 0, priority = 0;
   string title;
 
   while (file >> id >> priority) {
