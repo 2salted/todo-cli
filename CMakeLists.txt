@@ -1,16 +1,17 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project name
-project(todo-cli VERSION 0.1.1)
+project(todo-cli VERSION 0.2.0)
 
 # Define C++ standard
 set(CMAKE_CXX_STANDARD 17)
 
 # Add executable
-add_executable(todo-cli src/main.cpp)
+add_executable(todo src/main.cpp)
 
-target_compile_definitions(todo-cli PRIVATE APP_VERSION="${PROJECT_VERSION}")
+target_compile_definitions(todo PRIVATE APP_VERSION="${PROJECT_VERSION}")
 
+install(TARGETS todo DESTINATION $ENV{HOME}/.nix-profile/bin)
 # Include directories (optional)
 # include_directories(${PROJECT_SOURCE_DIR}/include)
 
