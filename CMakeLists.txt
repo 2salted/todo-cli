@@ -11,7 +11,7 @@ add_executable(todo src/main.cpp)
 
 target_compile_definitions(todo PRIVATE APP_VERSION="${PROJECT_VERSION}")
 
-install(TARGETS todo DESTINATION $ENV{HOME}/.nix-profile/bin)
+install(TARGETS todo DESTINATION /usr/local/bin/)
 # Include directories (optional)
 # include_directories(${PROJECT_SOURCE_DIR}/include)
 
