@@ -97,7 +97,6 @@ vector<tuple<i32, i32, string>> getTodo() {
 
 void closeTodo(i32 idToRemove) {
   vector<tuple<i32, i32, string>> todoList;
-  // bool idFound = false;
   ifstream file(string(getenv("HOME")) + "/.cache/todo-cli/todo.txt");
 
   if (!file) {
@@ -112,16 +111,8 @@ void closeTodo(i32 idToRemove) {
     if (id != idToRemove) {
       todoList.emplace_back(id, priority, title);
     }
-    // if (id == idToRemove) {
-    //   idFound = true;
-    // }
   }
   file.close();
-
-  // if (!idFound) {
-  //   cerr << "#" << id << " doesn't exist" << endl;
-  //   return;
-  // }
 
   ofstream outFile(string(getenv("HOME")) + "/.cache/todo-cli/todo.txt",
                    std::ios::trunc);
@@ -170,7 +161,7 @@ int main(i32 argc, char *argv[]) {
     cout << "Todo closed: " << "#" << id << endl;
     return 1;
   } else if (command == "-v") {
-    cout << "Todo\n" << APP_VERSION << endl;
+    // cout << "Todo\n" << APP_VERSION << endl;
     return 0;
   } else {
     cerr << "Error: command not found" << endl;

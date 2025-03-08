@@ -1,0 +1,7 @@
+/home/salted/repos/todo-cli/src/CMakeFiles/todo.dir
+/home/salted/repos/todo-cli/src/CMakeFiles/edit_cache.dir
+/home/salted/repos/todo-cli/src/CMakeFiles/rebuild_cache.dir
+/home/salted/repos/todo-cli/src/CMakeFiles/list_install_components.dir
+/home/salted/repos/todo-cli/src/CMakeFiles/install.dir
+/home/salted/repos/todo-cli/src/CMakeFiles/install/local.dir
+/home/salted/repos/todo-cli/src/CMakeFiles/install/strip.dir
